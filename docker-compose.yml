@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  spring-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    volumes:
+      - ./:/app
+      - ~/.m2:/root/.m2
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+  #config db
+  db:
+    image: postgres:17
+    restart: always
+    environment:
+      POSTGRES_DB: 'nat20'
+      POSTGRES_USER: 'nat20_owner'
+      POSTGRES_PASSWORD: 'npg_i98rWTjHMkoe'
+    ports:
+      - '5432:5432'
+    expose:
+      - '5432'
+    volumes:
+      - my-volume:/var/lib/postgresql/data
+
+volumes:
+  my-volume:

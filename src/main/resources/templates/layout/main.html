@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nat20</title>
+    <!-- ... otros elementos del head ... -->
+</head>
+<body>
+    <!-- ... contenido existente ... -->
+
+    <!-- Script para manejar el token JWT -->
+    <script th:inline="javascript">
+        // Función para obtener el token
+        function getJwtToken() {
+            return localStorage.getItem('jwtToken');
+        }
+
+        // Función para verificar si hay un token
+        function hasJwtToken() {
+            return !!getJwtToken();
+        }
+
+        // Función para hacer peticiones a la API
+        async function apiRequest(url, options = {}) {
+            const token = getJwtToken();
+            if (!token) {
+                throw new Error('No JWT token available');
+            }
+
+            const defaultOptions = {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            const response = await fetch(url, { ...defaultOptions, ...options });
+            if (response.status === 401) {
+                // Token expirado o inválido
+                localStorage.removeItem('jwtToken');
+                window.location.href = '/login';
+                return;
+            }
+            return response;
+        }
+
+        // Configurar el token para todas las peticiones fetch/axios
+        const token = getJwtToken();
+        if (token) {
+            // Configurar axios si lo estás usando
+            if (typeof axios !== 'undefined') {
+                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            }
+            
+            // Configurar fetch
+            const originalFetch = window.fetch;
+            window.fetch = function(url, options = {}) {
+                if (url.startsWith('/api/')) {
+                    options.headers = {
+                        ...options.headers,
+                        'Authorization': `Bearer ${token}`
+                    };
+                }
+                return originalFetch(url, options);
+            };
+        }
+    </script>
+</body>
+</html> 

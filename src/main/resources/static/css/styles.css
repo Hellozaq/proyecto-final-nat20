@@ -1,0 +1,85 @@
+/* Fondo y fuente general */
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(120deg, #1e1e2f, #2a2a40);
+    font-family: 'Roboto', sans-serif;
+    color: #dcdcdc;
+}
+
+/* Contenedor */
+.container {
+    background: #2c3e50;
+    padding: 2rem;
+    margin: 2rem auto;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+label {
+    font-size: 1rem;
+    color: #ffffff;
+}
+
+input,
+textarea,
+select {
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #444;
+    border-radius: 0.5rem;
+    background-color: #3a3a4a;
+    color: #ffffff;
+    transition: border 0.3s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #6c5ce7;
+    background-color: #4a4a5a;
+}
+
+/* Botones */
+button {
+    padding: 0.8rem;
+    font-size: 1rem;
+    background-color: #6c5ce7;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #5a55ae;
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+th,
+td {
+    padding: 0.8rem;
+    border: 1px solid #444;
+    text-align: left;
+    color: #ffffff;
+}
+
+th {
+    background-color: #3a3a4a;
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Usuarios - Nat20</title>
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Estilos -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Lista de usuarios</h2>
+    <a th:href="@{/admin/users/new}">Registrar nuevo usuario</a>
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.name}">Nombre</td>
+            <td th:text="${user.email}">Email</td>
+            <td th:text="${user.role.name}">Rol</td>
+            <td>
+                <a th:href="@{'/admin/users/' + ${user.userId} + '/edit-role'}">Editar rol</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
